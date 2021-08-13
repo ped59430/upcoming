@@ -1,3 +1,13 @@
+from selenium.webdriver.chrome.options import Options
+from airtable import airtable_download, airtable_upload
+import os
+import pytz
+import re
+import datetime
+from selenium.webdriver.support.expected_conditions import presence_of_element_located
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 import time
 import logging
 import threading
@@ -6,23 +16,15 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     logging.error("I'm alive")
     return "I'm alive"
 
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.expected_conditions import presence_of_element_located
-import datetime
-import re
-import pytz
-import os
-from airtable import airtable_download, airtable_upload
 
 API_KEY = os.environ['API_KEY']
+print('yo')
 
 
 def solve(s):
@@ -32,7 +34,6 @@ def solve(s):
 def scrapper():
     logging.error('begin scrapping')
     from selenium import webdriver
-    
 
     # Scrap
     url = 'https://rarity.tools/upcoming/'
@@ -94,14 +95,14 @@ def scrapper():
                         upload_data["Discord"] = cells[
                             1].find_element_by_xpath(
                                 ".//a[contains(@href, 'discord')]"
-                            ).get_attribute('href')
+                        ).get_attribute('href')
                     except NoSuchElementException:
                         pass
                     try:
                         upload_data["Twitter"] = cells[
                             1].find_element_by_xpath(
                                 ".//a[contains(@href, 'twitter')]"
-                            ).get_attribute('href')
+                        ).get_attribute('href')
                     except NoSuchElementException:
                         pass
                     cell_1 = cells[1].find_elements_by_tag_name("a")
@@ -152,9 +153,8 @@ def scrapper():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.ERROR, format='%(relativeCreated)6d %(threadName)s %(message)s')
+    logging.basicConfig(
+        level=logging.ERROR, format='%(relativeCreated)6d %(threadName)s %(message)s')
     t = threading.Thread(target=scrapper)
     t.start()
-    app.run(host = '0.0.0.0', port = 8080)
-    
-
+    app.run(host='0.0.0.0', port=8080)
