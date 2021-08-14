@@ -1,3 +1,4 @@
+from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from airtable import airtable_download, airtable_upload
 import os
@@ -14,6 +15,7 @@ import threading
 
 from flask import Flask
 
+# Flask app
 app = Flask(__name__)
 
 
@@ -26,7 +28,14 @@ def home():
     return "I'm alive"
 
 
+# Scrapper and Chrome
 API_KEY = os.environ['API_KEY']
+
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+webdriver = Chrome(options=chrome_options)
 
 
 def solve(s):
@@ -35,17 +44,10 @@ def solve(s):
 
 def scrapper():
     logging.error('begin scrapping')
-    from selenium import webdriver
 
     # Scrap
     url = 'https://rarity.tools/upcoming/'
     #chrome_driver_path = '/home/runner/Upcoming/chromedriver'
-
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    webdriver = webdriver.Chrome(options=chrome_options)
 
     while True:
         # get existing records
