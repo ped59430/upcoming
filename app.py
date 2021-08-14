@@ -20,11 +20,13 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     logging.error("I'm alive")
+    t = threading.Thread(target=scrapper)
+    t.start()
+    logging.error("I'm still alive")
     return "I'm alive"
 
 
 API_KEY = os.environ['API_KEY']
-print(API_KEY)
 
 
 def solve(s):
@@ -32,7 +34,6 @@ def solve(s):
 
 
 def scrapper():
-    print("in scrapper")
     logging.error('begin scrapping')
     from selenium import webdriver
 
@@ -154,9 +155,6 @@ def scrapper():
 
 
 if __name__ == '__main__':
-    # logging.basicConfig(
-    #     level=logging.ERROR, format='%(relativeCreated)6d %(threadName)s %(message)s')
-    t = threading.Thread(target=scrapper)
-    t.start()
-    print(t)
+    logging.basicConfig(
+        level=logging.ERROR, format='%(relativeCreated)6d %(threadName)s %(message)s')
     app.run(host='0.0.0.0', port=8080)
