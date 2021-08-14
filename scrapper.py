@@ -14,9 +14,8 @@ import logging
 
 # Scrapper and Chrome
 API_KEY = os.environ['API_KEY']
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-GOOGLE_CHROME_PATH = os.environ.get('GOOGLE_CHROME_BIN', "chromedriver")
-GOOGLE_CHROME_PATH_2 = os.environ.get('GOOGLE_CHROME_SHIM', None)
 chrome_options = Options()
 chrome_options.binary_location = GOOGLE_CHROME_PATH
 chrome_options.add_argument('--headless')
@@ -24,8 +23,7 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-gpu')
 print(CHROMEDRIVER_PATH)
 print(GOOGLE_CHROME_PATH)
-print(GOOGLE_CHROME_PATH_2)
-# webdriver = Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
+webdriver = Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
 
 
 def solve(s):
@@ -37,7 +35,7 @@ def scrapper():
 
     # Scrap
     url = 'https://rarity.tools/upcoming/'
-    #chrome_driver_path = '/home/runner/Upcoming/chromedriver'
+    # chrome_driver_path = '/home/runner/Upcoming/chromedriver'
 
     while True:
         # get existing records
@@ -147,5 +145,5 @@ def scrapper():
 
 
 if __name__ == '__main__':
-    # scrapper()
     print('main')
+    scrapper()
