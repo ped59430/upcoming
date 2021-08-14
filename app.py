@@ -30,12 +30,15 @@ def home():
 
 # Scrapper and Chrome
 API_KEY = os.environ['API_KEY']
-
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+GOOGLE_CHROME_PATH = os.environ.get('GOOGLE_CHROME_BIN', "chromedriver")
 chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_PATH
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-webdriver = Chrome(options=chrome_options)
+chrome_options.add_argument('--disable-gpu')
+
+webdriver = Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
 
 
 def solve(s):
