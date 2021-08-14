@@ -9,21 +9,21 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-import time
+# import time
 import logging
 
 # Scrapper and Chrome
 API_KEY = os.environ['API_KEY']
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+# GOOGLE_CHROME_PATH = os.environ.get('GOOGLE_CHROME_BIN', “chromedriver”)
+# CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 chrome_options = Options()
-chrome_options.binary_location = GOOGLE_CHROME_PATH
+# chrome_options.binary_location = GOOGLE_CHROME_PATH
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-gpu')
-print(CHROMEDRIVER_PATH)
-print(GOOGLE_CHROME_PATH)
-webdriver = Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
+# print(CHROMEDRIVER_PATH)
+# print(GOOGLE_CHROME_PATH)
+webdriver = Chrome()  # executable_path=CHROMEDRIVER_PATH, options=chrome_options)
 
 
 def solve(s):
