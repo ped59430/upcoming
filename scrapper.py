@@ -141,7 +141,7 @@ def scrapper():
             driver.close()
         logging.error("Done")
         logging.error("Waiting for one day")
-        time.sleep(86400)
+        # time.sleep(86400)
 
 
 if __name__ == '__main__':
