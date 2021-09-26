@@ -1,3 +1,5 @@
+## No maintained
+
 Rarity.tools scrapper made with selenium
 
 Stored in Airtable
