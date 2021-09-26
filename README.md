@@ -1,4 +1,4 @@
-## No maintained
+#### Not maintained
 
 Rarity.tools scrapper made with selenium
 
